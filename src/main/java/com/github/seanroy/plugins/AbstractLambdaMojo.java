@@ -71,6 +71,7 @@ public abstract class AbstractLambdaMojo extends AbstractMojo {
     public static final String TRIG_INT_LABEL_ALEXA_SK = "Alexa Skills Kit";
     public static final String TRIG_INT_LABEL_LEX = "Lex";
     public static final String TRIG_INT_LABEL_SQS = "SQS";
+    public static final String TRIG_INT_LABEL_IGNORE = "Ignore";
     
     public static final String PERM_LAMBDA_INVOKE = "lambda:InvokeFunction";
     
