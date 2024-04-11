@@ -44,6 +44,10 @@ public class LambdaFunction {
     /**
      * <p>@see {@link AbstractLambdaMojo}</p>
      */
+    private Integer ephemeralStorageSize;
+    /**
+     * <p>@see {@link AbstractLambdaMojo}</p>
+     */
     private Integer timeout;
     /**
      * <p>@see {@link AbstractLambdaMojo}</p>
@@ -136,6 +140,14 @@ public class LambdaFunction {
 
     public void setMemorySize(Integer memorySize) {
         this.memorySize = memorySize;
+    }
+
+    public Integer getEphemeralStorageSize() {
+        return ephemeralStorageSize;
+    }
+
+    public void setEphemeralStorageSize(Integer ephemeralStorageSize) {
+        this.ephemeralStorageSize = ephemeralStorageSize;
     }
 
     public Integer getTimeout() {
@@ -255,6 +267,11 @@ public class LambdaFunction {
 
     public LambdaFunction withMemorySize(Integer memorySize) {
         this.memorySize = memorySize;
+        return this;
+    }
+    
+    public LambdaFunction withEphemeralStorageSize(Integer ephemeralStorageSize) {
+        this.ephemeralStorageSize = ephemeralStorageSize;
         return this;
     }
 
