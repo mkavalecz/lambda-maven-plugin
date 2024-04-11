@@ -39,6 +39,7 @@ All of the AWS Lambda configuration parameters may be set within the lambda plug
 * `lambdaFunctionsJSON` JSON configuration for Lambda Functions. This is preferable configuration.
 * `timeout` Defaults to 30 seconds. The amount of time in which the function is allowed to run.
 * `memorySize` Defaults to 1024MB NOTE: Please review the AWS Lambda documentation on this setting as it could have an impact on your billing.
+* `memorySize` Defaults to 512MB NOTE: Please review the AWS Lambda documentation on this setting as it could have an impact on your billing.
 * `vpcSubnetIds` The VPC Subnets that Lambda should use to set up your VPC configuration. Format: "subnet-id (cidr-block) | az name-tag".
 * `vpcSecurityGroupIds` The VPC Security Groups that Lambda should use to set up your VPC configuration. Format: "sg-id (sg-name) | name-tag". Should be configured.
 * `publish` This boolean parameter can be used to request AWS Lambda to update the Lambda function and publish a version as an atomic operation. This is global for all functions and won't overwrite publish paramter in provided Lambda configuration. Setting to false will only update $LATEST.
@@ -116,6 +117,7 @@ Current configuration of LambdaFunction can be found in LambdaFunction.java.
                                 "handler": "no.flowlab.lambda0::test",
                                 "timeout": 30,
                                 "memorySize": 512,
+                                "ephemeralStorageSize": 512,
                                 "keepAlive": 15,
                                 "triggers": [
                                   {
