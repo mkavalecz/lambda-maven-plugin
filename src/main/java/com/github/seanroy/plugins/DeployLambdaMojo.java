@@ -47,6 +47,7 @@ import com.amazonaws.services.lambda.model.CreateFunctionRequest;
 import com.amazonaws.services.lambda.model.CreateFunctionResult;
 import com.amazonaws.services.lambda.model.DeleteEventSourceMappingRequest;
 import com.amazonaws.services.lambda.model.Environment;
+import com.amazonaws.services.lambda.model.EphemeralStorage;
 import com.amazonaws.services.lambda.model.EventSourceMappingConfiguration;
 import com.amazonaws.services.lambda.model.EventSourcePosition;
 import com.amazonaws.services.lambda.model.FunctionCode;
@@ -144,6 +145,7 @@ public class DeployLambdaMojo extends AbstractLambdaMojo {
                 .withRole(lambdaFunction.getLambdaRoleArn())
                 .withTimeout(lambdaFunction.getTimeout())
                 .withMemorySize(lambdaFunction.getMemorySize())
+                .withEphemeralStorage(new EphemeralStorage().withSize(lambdaFunction.getEphemeralStorageSize()))
                 .withRuntime(runtime)
                 .withVpcConfig(getVpcConfig(lambdaFunction))
                 .withEnvironment(new Environment().withVariables(lambdaFunction.getEnvironmentVariables()));
@@ -448,9 +450,10 @@ public class DeployLambdaMojo extends AbstractLambdaMojo {
                     boolean isRoleChanged = isChangeStr.test(config.getRole(), lambdaFunction.getLambdaRoleArn());
                     boolean isTimeoutChanged = isChangeInt.test(config.getTimeout(), lambdaFunction.getTimeout());
                     boolean isMemoryChanged = isChangeInt.test(config.getMemorySize(), lambdaFunction.getMemorySize());
+                    boolean isEphemeralStorageChanged = isChangeInt.test(config.getEphemeralStorage().getSize(), lambdaFunction.getEphemeralStorageSize());
                     boolean isSecurityGroupIdsChanged = isChangeList.test(vpcConfig.getSecurityGroupIds(), lambdaFunction.getSecurityGroupIds());
                     boolean isVpcSubnetIdsChanged = isChangeList.test(vpcConfig.getSubnetIds(), lambdaFunction.getSubnetIds());
-                    return isDescriptionChanged || isHandlerChanged || isRoleChanged || isTimeoutChanged || isMemoryChanged || 
+                    return isDescriptionChanged || isHandlerChanged || isRoleChanged || isTimeoutChanged || isMemoryChanged || isEphemeralStorageChanged ||
                            isSecurityGroupIdsChanged || isVpcSubnetIdsChanged || isAliasesChanged(lambdaFunction) || isKeepAliveChanged(lambdaFunction) ||
                            isScheduleRuleChanged(lambdaFunction);
                 })
@@ -505,6 +508,7 @@ public class DeployLambdaMojo extends AbstractLambdaMojo {
                 .withRuntime(runtime)
                 .withTimeout(ofNullable(lambdaFunction.getTimeout()).orElse(timeout))   
                 .withMemorySize(ofNullable(lambdaFunction.getMemorySize()).orElse(memorySize))
+                .withEphemeralStorage(new EphemeralStorage().withSize(ephemeralStorageSize))
                 .withVpcConfig(getVpcConfig(lambdaFunction))
                 .withCode(new FunctionCode()
                         .withS3Bucket(s3Bucket)

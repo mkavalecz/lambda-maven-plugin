@@ -190,6 +190,15 @@ public abstract class AbstractLambdaMojo extends AbstractMojo {
     @Parameter(property = "memorySize", defaultValue = "1024")
     public int memorySize;
     /**
+     * <p>
+     * The amount of ephemeral storage, in MB, your Lambda function is given.
+     * The /tmp temporary filesystem is located in this area.
+     * The default value is 512 MB.
+     * </p>
+     */
+    @Parameter(property = "ephemeralStorageSize", defaultValue = "512")
+    public int ephemeralStorageSize;
+    /**
      * <p>A list of one or more security groups IDs in your VPC.</p>
      */
     @Parameter(property = "vpcSecurityGroupIds", defaultValue = "${vpcSecurityGroupIds}")
@@ -425,6 +434,7 @@ public abstract class AbstractLambdaMojo extends AbstractMojo {
                           .withDescription(ofNullable(lambdaFunction.getDescription()).orElse(""))
                           .withTimeout(ofNullable(lambdaFunction.getTimeout()).orElse(timeout))
                           .withMemorySize(ofNullable(lambdaFunction.getMemorySize()).orElse(memorySize))
+                          .withEphemeralStorageSize(ofNullable(lambdaFunction.getEphemeralStorageSize()).orElse(ephemeralStorageSize))
                           .withSubnetIds(ofNullable(vpcSubnetIds).orElse(new ArrayList<>()))
                           .withSecurityGroupsIds(ofNullable(vpcSecurityGroupIds).orElse(new ArrayList<>()))
                           .withVersion(version)
