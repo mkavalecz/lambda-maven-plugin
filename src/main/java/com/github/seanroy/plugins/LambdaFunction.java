@@ -356,6 +356,7 @@ public class LambdaFunction {
                 .append(", description='").append(description).append('\'')
                 .append(", handler='").append(handler).append('\'')
                 .append(", memorySize=").append(memorySize)
+                .append(", ephemeralStorageSize=").append(ephemeralStorageSize)
                 .append(", timeout=").append(timeout)
                 .append(", version='").append(version).append('\'')
                 .append(", securityGroupIds=").append(securityGroupIds)
